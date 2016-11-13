@@ -21,41 +21,54 @@ typedef struct st_pilha{
 void inserir(pilha **cabeca, int x);
 void remover (pilha **cabeca, pilha *r);
 void imprimir(pilha *cabeca);
-int main()
+void operacao(pilha **cabeca, char op);
+int main(void)
 {
-    char o;
-
-    printf("\n\nEste programa simula uma calculadora polonesa. Para calcular digite os numeros um de cada vez e por fim o sinal('+','-','*','/') da operacao. \n");
-
-
-
-
-
-
-
+    
 }
 
-int c=0;
-float x[MAX];
-
-void push(float u)
+int operacao(pilha **cabeca, char op) /*funcao que ira calcular as operacoes('+','-','*','/')*/
 {
-    if(c==MAX)          
-    {   printf("Capacidade de armazenamento da pilha excedida.");
-        return 0;
+    pilha *pl=*cabeca;  /*pl ira apontar  para onde o vetor recebido aponta*/
+    pilha *plant=NULL;  /*plant recebe NULL*/
+    while(pl->prox!=NULL)
+    {
+        plant=pl;   /*enquanto pl->prox!=NULL, ou seja, nao eh o ultimo termo*/
+        pl=pl->prox;    /*avancamos plant para pl e pl para prox*/
     }
-    else
-        x[c]= u;
-    c++;
-}
+    switch(op)
+    {
+        case '+': /*se for +*/
+            if(plant==NULL) /*Se o usuario so digitou 1 numero*/
+                printf("Erro! Reinicie a calculadora e digite 2 numeros antes da operacao");
+            else
+                plant->c=((plant->) + (pl->c)); /*Soma o inteiro do plant com o inteiro do pl e substitui em plant para que possamos dar um free no pl*/
+            break;
 
-void pop()
-{
-    if(c==0)          
-    {   printf("A pilha esta vazia.");
-        return 0;
-    }
-    c--;
+        case '-':
+            if(plant==NULL) /*esse if eh para colocarmos o numero negativo*/    
+            {   plant=pl;   /*plant que era NULL aponta para onde pl aponta*/
+                pl=malloc(sizeof(pilha));   /*cria um espaco na memoria com o tamanho pilha*/
+                pl->c=1;    /*atribui um valor ao "espaco" inteiro de pl*/
+                pl->prox=NULL;  /*aponta para NULL*/
+                plant->c= -(plant->c);      /*plant ficara negativo*/
+                plant->prox=pl;     /*o vetor de plant aponta para pl*/}
+            else
+                if(plant->c > pl->c)
+                    plant->c= -((plant->c)-(pl->c)); /*se o numero for maior entao subtraimos e adicionamos o negativo*/
+                else
+                    plant->c=(pl->c - plant->c);    /*subtracao normal*/
+            break;
+
+        case '*':
+            plant->c=(plant->c * pl->c);     /*multiplica e substitui em plant->c*/
+            break;
+
+        case '/':    
+            plant->c=pl->c / plant->c;      /*divide e substitui em plant->c*/ 
+            break;    
+    }    
+    return plant->c;
 }
 
 void inserir(pilha **cabeca, int x)
