@@ -13,18 +13,19 @@
 #define MAX 80
 
 
-    typedef struct st_pilha{
-        int c;          // numero que a calculadora receberá
-        struct st_pilha *prox;  //poneiro que aponta para a proxima lista
-    }pilha;
+typedef struct st_pilha{
+    int c;          // numero que a calculadora receberá
+    struct st_pilha *prox;  //poneiro que aponta para a proxima lista
+}pilha;
 
-void inserir(pilha **cabeca, int x)
-
+void inserir(pilha **cabeca, int x);
+void remover (pilha **cabeca, pilha *r);
+void imprimir(pilha *cabeca);
 int main()
 {
     char o;
 
-    printf("\n\nEste programa simula uma calculadora polonesa. Para calcular digite os numeros um de cada vez e por fim o sinal('+','-','*','/') da operacao. \n")
+    printf("\n\nEste programa simula uma calculadora polonesa. Para calcular digite os numeros um de cada vez e por fim o sinal('+','-','*','/') da operacao. \n");
 
 
 
@@ -93,5 +94,16 @@ void remover (pilha **cabeca, pilha *r)
         plant->prox=pl->prox;  //o anteior apontará para o proximo de pl
     free(pl);
     return;
+}
+
+void imprimir(pilha *cabeca)
+{
+    pilha *pl=cabeca;
+    while(pl!=NULL)
+    {
+        printf("%d->",pl->c);     //imprime o valor inteiro de elemento
+        pl=pl->prox;              //passa a apontar para o proximo elemento
+    }
+    printf("NULL\n");             // se nao possui nenhum elemento imprime a mensagem na tela
 }
 
