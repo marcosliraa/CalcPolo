@@ -21,10 +21,11 @@ typedef struct st_pilha{
 void inserir(pilha **cabeca, int x);
 void remover (pilha **cabeca, pilha *r);
 void imprimir(pilha *cabeca);
-void operacao(pilha **cabeca, char op);
+int operacao(pilha **cabeca, char op);
+pilha *buscarult(pilha *cabeca);   
 int main(void)
 {
-    
+
 }
 
 int operacao(pilha **cabeca, char op) /*funcao que ira calcular as operacoes('+','-','*','/')*/
@@ -42,7 +43,7 @@ int operacao(pilha **cabeca, char op) /*funcao que ira calcular as operacoes('+'
             if(plant==NULL) /*Se o usuario so digitou 1 numero*/
                 printf("Erro! Reinicie a calculadora e digite 2 numeros antes da operacao");
             else
-                plant->c=((plant->) + (pl->c)); /*Soma o inteiro do plant com o inteiro do pl e substitui em plant para que possamos dar um free no pl*/
+                plant->c=((plant->c) + (pl->c)); /*Soma o inteiro do plant com o inteiro do pl e substitui em plant para que possamos dar um free no pl*/
             break;
 
         case '-':
@@ -120,3 +121,14 @@ void imprimir(pilha *cabeca)
     printf("NULL\n");             // se nao possui nenhum elemento imprime a mensagem na tela
 }
 
+pilha *buscarult(pilha *cabeca)    //função que busca o ultimo elemento da pilha para ser excluido pela função remover
+{
+    pilha *pl=cabeca;      //pilha aponta para cabeça
+    pilha *plant=NULL;     //plant recebe NULL
+    while(pl->prox!=NULL)  //enquanto pl->prox não apontar para NULL, ou seja não for o último elemento da lista
+    {
+        plant=pl;             //plant avança para pl
+        pl=pl->prox;         //pl avança para pl->prox
+    }
+    return pl;              //retorna pl, ou seja, retorna o último elemento da lista
+}
