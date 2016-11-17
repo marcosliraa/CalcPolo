@@ -25,6 +25,13 @@ int operacao(pilha **cabeca, char op);
 pilha *buscarult(pilha *cabeca);   
 int main(void)
 {
+    int k;
+    pilha *l1=NULL, *b=NULL;
+    printf("Calculadora Polonesa Reversa \n");
+    char c[10]= "start";
+    while (c[0] == 's')
+    {
+    }
 
 }
 
