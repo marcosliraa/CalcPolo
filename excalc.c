@@ -31,9 +31,29 @@ int main(void)
     char c[10]= "start";
     while (c[0] == 's')
     {
+        while(c[0]!= '=')       //se o primeiro elemento da string for diferente de = entao:
+        {
+            printf("Digite: \n");
+            gets(c);             //le o valor de c
+            if(c[0]=='+' || c[0]=='-' || c[0]=='*' || c[0]=='/')       //se o valor digitado foi uma operação
+            {
+                operacao(&l1,c[0]);       //funcao que realiza a operação, onde l1 vai ser o cabeça e c[0] a operação desejada
+                b=buscarult(l1);          //b apontará para o ultimo elemento de l1, pois b se iguala ao ponteiro que aponta para o ultimo elemento
+                remover(&l1,b);          //remover o ultimo elemento da pilha l1
+            }
+            else
+                if(c[0] == '=')
+                    imprimir(l1);        // se o usuario digitar '=' então o programa irá imprimir a pilha
+                else
+                {
+                    k=atoi(c);             //transforma o numero recebido de char para inteiro
+                    inserir(&l1,k);      //insere na pilha l1  um novo elemento com c=k
+                }
+        }
     }
-
+    return 0;
 }
+
 
 int operacao(pilha **cabeca, char op) /*funcao que ira calcular as operacoes('+','-','*','/')*/
 {
