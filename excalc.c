@@ -14,8 +14,8 @@
 
 
 typedef struct st_pilha{
-    int c;          // numero que a calculadora receberá
-    struct st_pilha *prox;  //poneiro que aponta para a proxima lista
+    int c;                  /* numero que a calculadora receberá */
+    struct st_pilha *prox;  /* poneiro que aponta para a proxima lista */
 }pilha;
 
 void inserir(pilha **cabeca, int x);
@@ -31,23 +31,23 @@ int main(void)
     char c[10]= "start";
     while (c[0] == 's')
     {
-        while(c[0]!= '=')       //se o primeiro elemento da string for diferente de = entao:
+        while(c[0]!= '=')       /*se o primeiro elemento da string for diferente de = entao: */
         {
             printf("Digite: \n");
-            gets(c);             //le o valor de c
-            if(c[0]=='+' || c[0]=='-' || c[0]=='*' || c[0]=='/')       //se o valor digitado foi uma operação
+            gets(c);                   /*le o valor de c*/
+            if(c[0]=='+' || c[0]=='-' || c[0]=='*' || c[0]=='/')       /*se o valor digitado foi uma operação*/
             {
-                operacao(&l1,c[0]);       //funcao que realiza a operação, onde l1 vai ser o cabeça e c[0] a operação desejada
-                b=buscarult(l1);          //b apontará para o ultimo elemento de l1, pois b se iguala ao ponteiro que aponta para o ultimo elemento
-                remover(&l1,b);          //remover o ultimo elemento da pilha l1
+                operacao(&l1,c[0]);       /*funcao que realiza a operação, onde l1 vai ser o cabeça e c[0] a operação desejada*/
+                b=buscarult(l1);          /*b apontará para o ultimo elemento de l1, pois b se iguala ao ponteiro que aponta para o ultimo elemento*/
+                remover(&l1,b);          /*remover o ultimo elemento da pilha l1*/
             }
             else
                 if(c[0] == '=')
-                    imprimir(l1);        // se o usuario digitar '=' então o programa irá imprimir a pilha
+                    imprimir(l1);        /* se o usuario digitar '=' então o programa irá imprimir a pilha*/
                 else
                 {
-                    k=atoi(c);             //transforma o numero recebido de char para inteiro
-                    inserir(&l1,k);      //insere na pilha l1  um novo elemento com c=k
+                    k=atoi(c);             //transforma o numero recebido de char para inteiro*/
+                    inserir(&l1,k);      /*insere na pilha l1  um novo elemento com c=k*/
                 }
         }
     }
@@ -108,13 +108,13 @@ void inserir(pilha **cabeca, int x)
         plant=pl;
         pl=pl->prox;
     }
-    pl=malloc(sizeof(pilha));           //aloca um espaço na memória
-    pl->c=x;                  //parte inteira do elemento n recebe x
-    pl->prox=NULL;            //ponteiro do elemento n aponta para NULL
-    if(plant!=NULL)          //se existe anterior, ou seja se exite mais de 1 elemento na lista
-        plant->prox=pl;      //elemento(n-1) aporta para pl
+    pl=malloc(sizeof(pilha));           /*aloca um espaço na memória*/
+    pl->c=x;                  /*parte inteira do elemento n recebe x*/
+    pl->prox=NULL;            /*ponteiro do elemento n aponta para NULL*/
+    if(plant!=NULL)          /*se existe anterior, ou seja se exite mais de 1 elemento na lista*/
+        plant->prox=pl;      /*elemento(n-1) aporta para pl*/
     else
-        *cabeca=pl;         //se plant=NULL então a pilha so tem 1 elemento por isso cabeca recebe pl
+        *cabeca=pl;         /*se plant=NULL então a pilha so tem 1 elemento por isso cabeca recebe pl*/
 }
 
 
@@ -122,17 +122,17 @@ void remover (pilha **cabeca, pilha *r)
 {
     pilha *pl=*cabeca;
     pilha *plant=NULL;
-    if(r==NULL)       //se r não apontar para nada, ele não exite
-        return;       //logo nao precisamos remover
-    while(pl!=NULL && pl!=r )      //enquanto pl não é o ultimo nem é r
+    if(r==NULL)       /*se r não apontar para nada, ele não exite*/
+        return;       /*logo nao precisamos remover*/
+    while(pl!=NULL && pl!=r )      /*enquanto pl não é o ultimo nem é r*/
     {
         plant=pl;
         pl=pl->prox;
     }
-    if(pl==NULL)     //se a lista é  vazia
+    if(pl==NULL)    
         return;
-    if(plant!=NULL)      //significa que possui um anterir a pl
-        plant->prox=pl->prox;  //o anteior apontará para o proximo de pl
+    if(plant!=NULL)      
+        plant->prox=pl->prox;  /*o anteior apontará para o proximo de pl*/
     free(pl);
     return;
 }
@@ -142,20 +142,20 @@ void imprimir(pilha *cabeca)
     pilha *pl=cabeca;
     while(pl!=NULL)
     {
-        printf("%d->",pl->c);     //imprime o valor inteiro de elemento
-        pl=pl->prox;              //passa a apontar para o proximo elemento
+        printf("%d->",pl->c);     /*imprime o valor inteiro de elemento*/
+        pl=pl->prox;              /*passa a apontar para o proximo elemento*/
     }
-    printf("NULL\n");             // se nao possui nenhum elemento imprime a mensagem na tela
+    printf("NULL\n");             /* se nao possui nenhum elemento imprime a mensagem na tela*/
 }
 
-pilha *buscarult(pilha *cabeca)    //função que busca o ultimo elemento da pilha para ser excluido pela função remover
+pilha *buscarult(pilha *cabeca)    /*função que busca o ultimo elemento da pilha para ser excluido pela função remover*/
 {
-    pilha *pl=cabeca;      //pilha aponta para cabeça
-    pilha *plant=NULL;     //plant recebe NULL
-    while(pl->prox!=NULL)  //enquanto pl->prox não apontar para NULL, ou seja não for o último elemento da lista
+    pilha *pl=cabeca;      /*pilha aponta para cabeça*/
+    pilha *plant=NULL;     /*plant recebe NULL*/
+    while(pl->prox!=NULL)  /*enquanto pl->prox não apontar para NULL, ou seja não for o último elemento da lista*/
     {
-        plant=pl;             //plant avança para pl
-        pl=pl->prox;         //pl avança para pl->prox
+        plant=pl;             /*plant avança para pl*/
+        pl=pl->prox;         /*pl avança para pl->prox*/
     }
-    return pl;              //retorna pl, ou seja, retorna o último elemento da lista
+    return pl;              /*retorna pl, ou seja, retorna o último elemento da lista*/
 }
